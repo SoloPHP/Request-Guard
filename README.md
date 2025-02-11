@@ -4,7 +4,7 @@
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-**Robust request validation & authorization layer for Solo framework | Secure your HTTP inputs with type-safe guards**
+**Robust request validation & authorization layer for HTTP inputs with type-safe guards**
 
 ---
 
