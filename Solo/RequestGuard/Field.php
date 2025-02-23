@@ -4,15 +4,18 @@ namespace Solo\RequestGuard;
 
 class Field
 {
+    public readonly string $inputName;
+
     public function __construct(
         public readonly string  $name,
         public readonly mixed   $default = null,
         public readonly ?string $rules = null,
         public readonly mixed   $preprocessor = null,
         public readonly mixed   $postprocessor = null,
-        public readonly ?string $inputName = null
+        ?string                 $inputName = null
     )
     {
+        $this->inputName = $inputName ?? $name;
     }
 
     public static function for(string $name): self
