@@ -9,7 +9,8 @@ class Field
         public readonly mixed   $default = null,
         public readonly ?string $rules = null,
         public readonly mixed   $preprocessor = null,
-        public readonly mixed   $postprocessor = null
+        public readonly mixed   $postprocessor = null,
+        public readonly ?string $inputName = null
     )
     {
     }
@@ -19,6 +20,18 @@ class Field
         return new self($name);
     }
 
+    public function mapFrom(string $inputName): self
+    {
+        return new self(
+            name: $this->name,
+            default: $this->default,
+            rules: $this->rules,
+            preprocessor: $this->preprocessor,
+            postprocessor: $this->postprocessor,
+            inputName: $inputName
+        );
+    }
+
     public function default(mixed $value): self
     {
         return new self(
@@ -26,7 +39,8 @@ class Field
             default: $value,
             rules: $this->rules,
             preprocessor: $this->preprocessor,
-            postprocessor: $this->postprocessor
+            postprocessor: $this->postprocessor,
+            inputName: $this->inputName
         );
     }
 
@@ -37,7 +51,8 @@ class Field
             default: $this->default,
             rules: $rules,
             preprocessor: $this->preprocessor,
-            postprocessor: $this->postprocessor
+            postprocessor: $this->postprocessor,
+            inputName: $this->inputName
         );
     }
 
@@ -48,7 +63,8 @@ class Field
             default: $this->default,
             rules: $this->rules,
             preprocessor: $handler,
-            postprocessor: $this->postprocessor
+            postprocessor: $this->postprocessor,
+            inputName: $this->inputName
         );
     }
 
@@ -59,7 +75,8 @@ class Field
             default: $this->default,
             rules: $this->rules,
             preprocessor: $this->preprocessor,
-            postprocessor: $handler
+            postprocessor: $handler,
+            inputName: $this->inputName
         );
     }
 

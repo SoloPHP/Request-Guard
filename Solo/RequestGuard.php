@@ -54,7 +54,7 @@ abstract class RequestGuard
     {
         $result = [];
         foreach ($this->fields() as $field) {
-            $value = $requestData[$field->name] ?? $field->default;
+            $value = $this->dataGet($requestData, $field->inputName, $field->default);
             $result[$field->name] = $field->processPre($value);
         }
         return $result;
@@ -83,5 +83,20 @@ abstract class RequestGuard
             }
         }
         return $data;
+    }
+
+    private function dataGet(array $data, string $path, mixed $default = null): mixed
+    {
+        $keys = explode('.', $path);
+        $current = $data;
+
+        foreach ($keys as $key) {
+            if (!is_array($current) || !array_key_exists($key, $current)) {
+                return $default;
+            }
+            $current = $current[$key];
+        }
+
+        return $current;
     }
 }
