@@ -1,6 +1,6 @@
 # Solo Request Guard 🛡️
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/solophp/request-guard)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/solophp/request-guard)
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
@@ -18,6 +18,7 @@
 - **PSR-7 compatible**
 - **Smart request data merging** (POST body > GET params)
 - **Immutable field definitions**
+- **Default values access** via unified API
 
 ## 🔗 Dependencies
 
@@ -96,6 +97,20 @@ class ArticleController
 }
 ```
 
+### Working with Default Values
+```php
+$guard = new CreateArticleRequest(new Validator());
+
+// Get all defined default values
+$defaults = $guard->defaultValues(); 
+// Returns: ['status' => 'draft']
+
+// Use defaults with form initialization
+return view('articles.create', [
+    'defaults' => $guard->defaultValues()
+]);
+```
+
 ---
 
 ## ⚙️ Field Configuration
@@ -132,6 +147,7 @@ Field::for('tags')
 - **GET**: Query parameters only  
 - **POST/PUT/PATCH**: Merged body + query (body priority)  
 - **Files**: Via `$request->getUploadedFiles()`  
+- **Defaults**: Access via `$guard->defaultValues()`
 
 ---
 

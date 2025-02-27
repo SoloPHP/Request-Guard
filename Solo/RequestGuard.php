@@ -30,6 +30,17 @@ abstract class RequestGuard
         return $postprocessed;
     }
 
+    public function defaultValues(): array
+    {
+        $defaults = [];
+        foreach ($this->fields() as $field) {
+            if ($field->default !== null) {
+                $defaults[$field->name] = $field->default;
+            }
+        }
+        return $defaults;
+    }
+
     /**
      * @return array<Field>
      */
