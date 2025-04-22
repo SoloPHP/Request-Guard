@@ -2,6 +2,7 @@
 [![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/solophp/request-guard)
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 **Robust request validation & authorization layer for HTTP inputs with type-safe guards**
 ---
 ## ✨ Features
