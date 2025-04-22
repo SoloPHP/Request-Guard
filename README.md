@@ -1,15 +1,10 @@
 # Solo Request Guard 🛡️
-
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/solophp/request-guard)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/solophp/request-guard)
 [![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
 **Robust request validation & authorization layer for HTTP inputs with type-safe guards**
-
 ---
-
 ## ✨ Features
-
 - **Type-safe request validation**
 - **Field mapping** from custom input names/nested structures
 - **Built-in authorization checks**
@@ -17,13 +12,12 @@
 - **Custom error messages**
 - **PSR-7 compatible**
 - **Smart request data merging** (POST body > GET params)
+- **GET query cleaning with exception support**
 - **Immutable field definitions**
-
+---
 ## 🔗 Dependencies
-
 - [PSR-7 HTTP Message Interface](https://github.com/php-fig/http-message) (`psr/http-message` ^2.0)
-- [Solo Validator](https://github.com/solophp/validator) (`solophp/validator` ^2.0)
-
+- [Solo Validator](https://github.com/solophp/validator) (`solophp/validator` ^2.1)
 ---
 
 ## 📥 Installation
@@ -150,7 +144,12 @@ catch (AuthorizationException $e) {
     return ['message' => $e->getMessage()]; // "Unauthorized request"
 }
   ```
-
+### UncleanQueryException (HTTP 400 or custom)
+```php
+catch (UncleanQueryException $e) {
+    return redirect($e->getRedirectUri());
+}
+```
 ---
 
 ## 🚦 Custom Messages
@@ -176,12 +175,17 @@ public function test_nested_mapping() {
     $this->assertEquals('test@example.com', $data['author_email']);
 }
 ```
-
 ---
-
+## 📚 Public API
+| Method                  | Description                                                              |
+|--------------------------|--------------------------------------------------------------------------|
+| `handle(ServerRequestInterface $request): array` | Main entry point: cleans, authorizes, validates, postprocesses |
+| `getRequestData(ServerRequestInterface $request): array` | Merges GET/POST params, returns raw input                    |
+| `removeDefaults(array $data): array`             | Strips default values from the given array                   |
+| `getDefaults(): array`                           | Returns all non-null default field values                   |
+---
 ## ⚙️ Requirements
-- PHP 8.2+
-
+- PHP 8.1+
 ---
 
 ## 📄 License
